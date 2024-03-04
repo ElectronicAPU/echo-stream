@@ -1,5 +1,7 @@
 import React from "react";
 import { useGetProductsQuery } from "../slices/productsApiSlice";
+import Products from "../components/Products";
+import MainLayout from "../components/Layouts/MainLayout";
 
 const Home = () => {
   const { data: products, isLoading, isError } = useGetProductsQuery();
@@ -16,11 +18,13 @@ const Home = () => {
         </>
       ) : (
         <>
-          <div>
-            {products?.map((product, id) => (
-              <h1 key={id}>{product?.brand}</h1>
-            ))}
-          </div>
+          <MainLayout>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 w-full h-full gap-4">
+              {products?.map((product, id) => (
+                <Products key={id} product={product} />
+              ))}
+            </div>
+          </MainLayout>
         </>
       )}
     </>
