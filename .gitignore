@@ -7,6 +7,7 @@
 
 # testing
 /coverage
+/constant
 
 # production
 /build
