@@ -6,8 +6,10 @@ import MainLayout from "../components/Layouts/MainLayout";
 const Home = () => {
   const { data: products, isLoading, isError } = useGetProductsQuery();
 
+  console.log(products);
+
   return (
-    <>
+    <MainLayout>
       {isLoading ? (
         <>
           <h1>Loading...</h1>
@@ -18,16 +20,14 @@ const Home = () => {
         </>
       ) : (
         <>
-          <MainLayout>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 w-full h-full gap-4">
-              {products?.map((product, id) => (
-                <Products key={id} product={product} />
-              ))}
-            </div>
-          </MainLayout>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 w-full h-full gap-4">
+            {products?.map((product, id) => (
+              <Products key={id} product={product} />
+            ))}
+          </div>
         </>
       )}
-    </>
+    </MainLayout>
   );
 };
 
