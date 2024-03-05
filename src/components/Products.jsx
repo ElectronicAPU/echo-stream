@@ -1,3 +1,4 @@
+import { ShoppingCart } from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -23,6 +24,11 @@ const Products = ({ product }) => {
               <span className="font-semibold">Price:</span> ${product.price}
             </p>
           </Link>
+          <div className="mt-2 w-full h-10 flex gap-2">
+            <button className=" w-full h-full flex justify-center items-center gap-1 rounded-lg bg-sky-100 border text-sm font-semibold">
+              <ShoppingCart className="w-4"/> Add to cart
+            </button>
+          </div>
         </div>
       </div>
     </>

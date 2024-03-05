@@ -22,3 +22,31 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.light ::-webkit-scrollbar-track {
+  background: var(--light-mode-background-color);
+}
+
+.light ::-webkit-scrollbar-thumb {
+  background: var(--dark-mode-background-color);
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--dark-mode-background-color);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #454444;
+}

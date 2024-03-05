@@ -5,7 +5,7 @@ import {
   communityArray,
 } from "../array/footerArray";
 import { Link } from "react-router-dom";
-import { Linkedin } from "lucide-react";
+import { Facebook, GitGraph, Linkedin, Twitch, Twitter } from "lucide-react";
 
 const Footer = () => {
   const year = new Date().getFullYear();
@@ -50,11 +50,12 @@ const Footer = () => {
             {/* Address */}
             <div className=" ">
               <div data-aos="zoom-in" className="flex gap-2 items-center">
-                <img src="/images/logo.png" className="w-8" />
+                <img src="/images/logo.png" alt="logo" className="w-8" />
                 <h1 className="font-bold text-xl text-white">ECHO STREAM</h1>
               </div>
               <div className=" ">
                 <iframe
+                  title="map"
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10422.789638214517!2d88.3364315863532!3d22.541200153665137!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02771346ae015d%3A0xb540e4bce39763!2sVictoria%20Memorial!5e0!3m2!1sen!2sin!4v1709577436511!5m2!1sen!2sin"
                   width="400"
                   height="300"
@@ -109,9 +110,9 @@ const Footer = () => {
           <div className=" flex justify-center">
             <div className="flex gap-4">
               <Linkedin className="w-4 text-white" />
-              <Linkedin className="w-4 text-white" />
-              <Linkedin className="w-4 text-white" />
-              <Linkedin className="w-4 text-white" />
+              <Twitch className="w-4 text-white" />
+              <Twitter className="w-4 text-white" />
+              <Facebook className="w-4 text-white" />
             </div>
           </div>
           <div className="text-center mt-6">

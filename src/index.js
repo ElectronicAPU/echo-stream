@@ -15,6 +15,7 @@ import SignUp from "./screens/SignUpScrren";
 import Home from "./screens/HomeScreen";
 import { Provider } from "react-redux";
 import store from "./store";
+import { NextUIProvider } from "@nextui-org/system";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,9 +31,11 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <HelmetProvider>
-        <RouterProvider router={router} />
-      </HelmetProvider>
+      <NextUIProvider>
+        <HelmetProvider>
+          <RouterProvider router={router} />
+        </HelmetProvider>
+      </NextUIProvider>
     </Provider>
   </React.StrictMode>
 );
