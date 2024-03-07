@@ -1,4 +1,4 @@
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Star } from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -23,10 +23,13 @@ const Products = ({ product }) => {
             <p className="sm:truncate font-semibold text-sm mt-1">
               <span className="font-semibold">Price:</span> ${product.price}
             </p>
+            <div className="flex gap-1 text-sm mt-1">
+            <span className="font-semibold">Rating:</span> {product.rating}
+            </div>
           </Link>
           <div className="mt-2 w-full h-10 flex gap-2">
             <button className=" w-full h-full flex justify-center items-center gap-1 rounded-lg bg-sky-100 border text-sm font-semibold">
-              <ShoppingCart className="w-4"/> Add to cart
+              <ShoppingCart className="w-4" /> Add to cart
             </button>
           </div>
         </div>
