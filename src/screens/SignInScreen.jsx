@@ -1,6 +1,9 @@
 import { Eye, EyeOff } from "lucide-react";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../slices/usersApiSlice";
+import { toast } from "react-toastify";
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -9,12 +12,30 @@ const SignIn = () => {
     password: "",
   });
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [login, { isLoading }] = useLoginMutation();
+
+  //Normal Login
   const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate("/home");
+    try {
+      const res = await login({
+        email: formData.email,
+        password: formData.password,
+      }).unwrap();
+      if (res) {
+        toast.success("Successfully logged in");
+        navigate("/home");
+      }
+    } catch (err) {
+      console.error("Login Error:", err.data.message || err.message);
+      toast.error(err.data.message || err.message);
+    }
   };
+
+  //Google Login
   const handleGoogleLogin = async () => {
     console.log("hello world");
   };
