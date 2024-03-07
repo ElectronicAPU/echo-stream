@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../slices/usersApiSlice";
 import { toast } from "react-toastify";
+import { setCredentials } from "../slices/authSlice";
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -26,6 +27,8 @@ const SignIn = () => {
         password: formData.password,
       }).unwrap();
       if (res) {
+        // const hello = dispatch(setCredentials(res));
+        // console.log(hello);
         toast.success("Successfully logged in");
         navigate("/home");
       }
