@@ -17,6 +17,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { NextUIProvider } from "@nextui-org/system";
 
+// Create a browser router with your routes
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -27,16 +28,17 @@ const router = createBrowserRouter(
   )
 );
 
+// Use ReactDOM.createRoot to render your app
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <NextUIProvider>
-        <HelmetProvider>
+    <HelmetProvider>
+      <Provider store={store}>
+        <NextUIProvider>
           <RouterProvider router={router} />
-        </HelmetProvider>
-      </NextUIProvider>
-    </Provider>
+        </NextUIProvider>
+      </Provider>
+    </HelmetProvider>
   </React.StrictMode>
 );
 

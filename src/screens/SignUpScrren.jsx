@@ -1,8 +1,10 @@
 import { Eye, EyeOff, Linkedin } from "lucide-react";
 import React, { useCallback, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import PasswordConditions from "../components/PasswordConditions";
+import { useDispatch } from "react-redux";
+import { useLoginMutation, useRegisterMutation } from "../slices/usersApiSlice";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -11,7 +13,6 @@ const SignUp = () => {
     email: "",
     password: "",
   });
-  console.log(formData);
 
   const [valid, setValid] = useState({
     lengthreg: false,
@@ -23,31 +24,37 @@ const SignUp = () => {
 
   // const navigate = useNavigate();
 
-  const validatePasswords = useCallback(
-    (passwords) => {
-      const lengthRegExp = /^.{8,50}$/;
-      const lowercaseRegExp = /[a-z]/;
-      const uppercaseRegExp = /[A-Z]/;
-      const specialRegExp = /[!@#$%^&*(),.?":{}|<>]/;
-      const numberRegExp = /\d/;
+  const validatePasswords = useCallback((passwords) => {
+    const lengthRegExp = /^.{8,50}$/;
+    const lowercaseRegExp = /[a-z]/;
+    const uppercaseRegExp = /[A-Z]/;
+    const specialRegExp = /[!@#$%^&*(),.?":{}|<>]/;
+    const numberRegExp = /\d/;
 
-      setValid({
-        lengthreg: lengthRegExp.test(passwords),
-        lowercase: lowercaseRegExp.test(passwords),
-        uppercase: uppercaseRegExp.test(passwords),
-        special: specialRegExp.test(passwords),
-        number: numberRegExp.test(passwords),
-      });
-    },
-    []
-  );
+    setValid({
+      lengthreg: lengthRegExp.test(passwords),
+      lowercase: lowercaseRegExp.test(passwords),
+      uppercase: uppercaseRegExp.test(passwords),
+      special: specialRegExp.test(passwords),
+      number: numberRegExp.test(passwords),
+    });
+  }, []);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [register, { isLoading }] = useRegisterMutation();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    // Check if required fields are filled
     if (!formData.name || !formData.email || !formData.password) {
       alert("Please enter the required fields");
       return;
     }
+
+    // Check if password meets validations
     if (
       !valid.lengthreg ||
       !valid.lowercase ||
@@ -55,8 +62,26 @@ const SignUp = () => {
       !valid.special ||
       !valid.number
     ) {
-      toast.warn("Please check password validitions");
+      toast.warn("Please check password validations");
       return;
+    }
+
+    try {
+      // Dispatch the register action with the form data
+      const res = await register({
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+      }).unwrap();
+      if (res.error) {
+        toast.error(res.error);
+      } else {
+        navigate("/home");
+      }
+    } catch (err) {
+      // Log any errors that occur during the API call
+      toast.error(err.data.message || err.message);
+      console.log(err.data.message || err.message);
     }
   };
 
