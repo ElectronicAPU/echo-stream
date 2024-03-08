@@ -12,6 +12,9 @@ import { handleSorting } from "../utils/sortingLogics";
 const Home = () => {
   const [selectCategory, setSelectCategory] = useState("mobiles");
   const [sortBy, setSortBy] = useState("");
+
+  const [searchQuery, setSearchQuery] = useState("");
+
   const { data: products, isLoading, isError } = useGetProductsQuery();
 
   const mobiles = useMemo(

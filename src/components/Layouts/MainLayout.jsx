@@ -9,7 +9,6 @@ const MainLayout = ({ children }) => {
       <div>
         <Header />
         <div className="p-4 w-full min-h-screen flex flex-col md:flex-row gap-8 ">
-         
           {children}
         </div>
         <Footer />
