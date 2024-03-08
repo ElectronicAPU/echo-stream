@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useGetProductsQuery } from "../slices/productsApiSlice";
 import MainLayout from "../components/Layouts/MainLayout";
 import { Spinner } from "@nextui-org/react";
@@ -6,9 +6,12 @@ import { Laptop2, Shirt, TabletSmartphone } from "lucide-react";
 import Mobiles from "../components/Products/Mobiles";
 import Electronics from "../components/Products/Electronics";
 import Fashions from "../components/Products/Fashions";
+import SideBar from "../components/SideBar";
+import { handleSorting } from "../utils/sortingLogics";
 
 const Home = () => {
   const [selectCategory, setSelectCategory] = useState("mobiles");
+  const [sortBy, setSortBy] = useState("");
   const { data: products, isLoading, isError } = useGetProductsQuery();
 
   const mobiles = useMemo(
@@ -19,9 +22,17 @@ const Home = () => {
     () => products?.filter((item) => item.category === "Electronics"),
     [products]
   );
+  const selectedCategory = selectCategory === "mobiles" ? mobiles : electronics;
+
+  const sortedMobiles = sortBy
+    ? handleSorting(sortBy, selectedCategory)
+    : selectedCategory;
 
   return (
     <MainLayout>
+      <div className="w-full md:w-72">
+        <SideBar setSorting={setSortBy} />
+      </div>
       {isLoading ? (
         <div className="w-full h-full flex justify-center items-center">
           <Spinner />
@@ -90,7 +101,7 @@ const Home = () => {
                   <h1 className="font-bold text-2xl ">Mobiles</h1>
                 </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 w-full h-full gap-4">
-                  {mobiles?.map((product, id) => (
+                  {sortedMobiles?.map((product, id) => (
                     <Mobiles key={id} mobile={product} />
                   ))}
                 </div>
@@ -102,7 +113,7 @@ const Home = () => {
                   <h1 className="font-bold text-2xl ">Electronics</h1>
                 </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 w-full h-full gap-4">
-                  {electronics?.map((electronic, id) => (
+                  {sortedMobiles?.map((electronic, id) => (
                     <Electronics key={id} electronic={electronic} />
                   ))}
                 </div>
