@@ -3,8 +3,7 @@ import React, { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import PasswordConditions from "../components/PasswordConditions";
-import { useDispatch } from "react-redux";
-import { useLoginMutation, useRegisterMutation } from "../slices/usersApiSlice";
+import { useRegisterMutation } from "../slices/usersApiSlice";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -40,7 +39,6 @@ const SignUp = () => {
     });
   }, []);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [register, { isLoading }] = useRegisterMutation();

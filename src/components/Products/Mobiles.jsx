@@ -1,5 +1,5 @@
 import { ShoppingCart, Star } from "lucide-react";
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 
 const Mobiles = ({ mobile }) => {
@@ -24,7 +24,7 @@ const Mobiles = ({ mobile }) => {
               <span className="font-semibold">Price:</span> ${mobile.price}
             </p>
             <div className="flex gap-1 text-sm mt-1">
-            <span className="font-semibold">Rating:</span> {mobile.rating}
+              <span className="font-semibold">Rating:</span> {mobile.rating}
             </div>
           </Link>
           <div className="mt-2 w-full h-10 flex gap-2">
@@ -38,4 +38,4 @@ const Mobiles = ({ mobile }) => {
   );
 };
 
-export default Mobiles;
+export default memo(Mobiles);

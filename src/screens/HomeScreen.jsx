@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { useGetProductsQuery } from "../slices/productsApiSlice";
 import MainLayout from "../components/Layouts/MainLayout";
 import { Spinner } from "@nextui-org/react";
@@ -10,6 +10,15 @@ import Fashions from "../components/Products/Fashions";
 const Home = () => {
   const [selectCategory, setSelectCategory] = useState("mobiles");
   const { data: products, isLoading, isError } = useGetProductsQuery();
+
+  const mobiles = useMemo(
+    () => products?.filter((item) => item.category === "Mobile"),
+    [products]
+  );
+  const electronics = useMemo(
+    () => products?.filter((item) => item.category === "Electronics"),
+    [products]
+  );
 
   return (
     <MainLayout>
@@ -81,7 +90,7 @@ const Home = () => {
                   <h1 className="font-bold text-2xl ">Mobiles</h1>
                 </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 w-full h-full gap-4">
-                  {products?.map((product, id) => (
+                  {mobiles?.map((product, id) => (
                     <Mobiles key={id} mobile={product} />
                   ))}
                 </div>
@@ -93,7 +102,9 @@ const Home = () => {
                   <h1 className="font-bold text-2xl ">Electronics</h1>
                 </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 w-full h-full gap-4">
-                  <Electronics />
+                  {electronics?.map((electronic, id) => (
+                    <Electronics key={id} electronic={electronic} />
+                  ))}
                 </div>
               </div>
             ) : (
